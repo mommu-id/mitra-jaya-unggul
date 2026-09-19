@@ -1,0 +1,11 @@
+{
+  "title": "Mitra Jaya Unggul",
+  "description": "Streamline your workflow with a user-friendly platform that allows teams to efficiently manage tasks, track progress, and enhance collaboration.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
