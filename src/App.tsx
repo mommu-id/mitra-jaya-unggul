@@ -384,9 +384,8 @@ function ProductSlider({
               </div>
               <div className="p-4 flex flex-col gap-3 flex-1 justify-between">
                 <div>
-                  <div className="flex items-center justify-between gap-2 mb-1">
+                  <div className="mb-1">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-[#03A2E8]">{p.tag}</span>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-600">MJU Stock</span>
                   </div>
                   <h4 className="text-[14px] font-bold text-slate-900 leading-snug line-clamp-2">{p.name}</h4>
                 </div>
