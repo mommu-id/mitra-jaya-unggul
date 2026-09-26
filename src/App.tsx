@@ -38,14 +38,13 @@ const COPY = {
     f2Desc: "Streamline your factory supply chain with consistent, certified indirect materials and machinery spare parts from a single reliable vendor.",
     f2Btn: "REQUEST A QUOTE",
     f2Products: [
-      { name: "Alat Lem Tembak Bosch", tag: "Tools", img: "./images/alat-lem-tembak-bosch.jpeg" },
-      { name: "Glue Stick Uk Besar", tag: "Consumable", img: "./images/glue-stick-uk-besar.jpeg" },
-      { name: "Lakban Putih", tag: "Packaging", img: "./images/lakban-putih.jpeg" },
+      { name: "Bosch Hot Glue Gun", tag: "Tools", img: "./images/alat-lem-tembak-bosch.jpeg" },
+      { name: "Large Hot Melt Glue Stick", tag: "Consumable", img: "./images/glue-stick-uk-besar.jpeg" },
+      { name: "White Packaging Tape", tag: "Packaging", img: "./images/lakban-putih.jpeg" },
       { name: "Masking Tape", tag: "Consumable", img: "./images/masking-tape.jpeg" },
-      { name: "Pita Tali Plastik Putih", tag: "Packaging", img: "./images/pita-tali-plastik-putih.jpeg" },
-      { name: "Stretch Film", tag: "Packaging", img: "./images/strecth-film.jpeg" },
+      { name: "White Plastic Strapping Band", tag: "Packaging", img: "./images/pita-tali-plastik-putih.jpeg" },
+      { name: "Stretch Film Roll", tag: "Packaging", img: "./images/strecth-film.jpeg" },
       { name: "Industrial Tape & Scotch", tag: "Consumable", img: "./images/scotch_tape.jpeg" },
-      { name: "Heavy-Duty Stretch Film", tag: "Packaging", img: "./images/wrapping.jpeg" },
       { name: "Offset Printing Blanket", tag: "Printing", img: "./images/meiji_blanket.jpg" },
     ],
 
@@ -125,14 +124,13 @@ const COPY = {
     f2Btn: "MINTA PENAWARAN",
     f2Products: [
       { name: "Alat Lem Tembak Bosch", tag: "Peralatan", img: "./images/alat-lem-tembak-bosch.jpeg" },
-      { name: "Glue Stick Uk Besar", tag: "Consumable", img: "./images/glue-stick-uk-besar.jpeg" },
+      { name: "Glue Stick Ukuran Besar", tag: "Consumable", img: "./images/glue-stick-uk-besar.jpeg" },
       { name: "Lakban Putih", tag: "Packaging", img: "./images/lakban-putih.jpeg" },
-      { name: "Masking Tape", tag: "Consumable", img: "./images/masking-tape.jpeg" },
-      { name: "Pita Tali Plastik Putih", tag: "Packaging", img: "./images/pita-tali-plastik-putih.jpeg" },
-      { name: "Stretch Film", tag: "Packaging", img: "./images/strecth-film.jpeg" },
-      { name: "Lakban Industri & Scotch", tag: "Consumable", img: "./images/scotch_tape.jpeg" },
-      { name: "Stretch Film Roll", tag: "Packaging", img: "./images/wrapping.jpeg" },
-      { name: "Offset Printing Blanket", tag: "Printing", img: "./images/meiji_blanket.jpg" },
+      { name: "Lakban Kertas (Masking Tape)", tag: "Consumable", img: "./images/masking-tape.jpeg" },
+      { name: "Pita Tali Plastik Putih (Strapping)", tag: "Packaging", img: "./images/pita-tali-plastik-putih.jpeg" },
+      { name: "Plastik Stretch Film", tag: "Packaging", img: "./images/strecth-film.jpeg" },
+      { name: "Lakban Industri & Scotch Tape", tag: "Consumable", img: "./images/scotch_tape.jpeg" },
+      { name: "Offset Printing Blanket", tag: "Percetakan", img: "./images/meiji_blanket.jpg" },
     ],
 
     whyTitle: "Mengapa Bekerja Sama dengan Kami?",
@@ -370,7 +368,7 @@ function ProductSlider({
 
           return (
             <div
-              key={p.name}
+              key={p.img}
               className="w-[260px] sm:w-[290px] shrink-0 snap-start bg-white rounded-xl overflow-hidden border shadow-sm flex flex-col hover:-translate-y-1 transition-all duration-200 group"
               style={{ borderColor: "#CBD5E1" }}
             >
