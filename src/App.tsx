@@ -109,7 +109,7 @@ const COPY = {
     subTitle: "SUBCONTRACTING",
     subItems: ["Perakitan (Assembly)", "Pengeleman Manual", "Pick & Pack", "Sortir", "Rework", "Dan proses custom lainnya"],
     supplyTitle: "SUPLAI INDUSTRI",
-    supplyItems: ["Lakban Industri", "Stretch Film", "Glue Stick", "Blanket Offset Printing", "Suku Cadang Mesin (Bearing, dll.)", "Dan lainnya"],
+    supplyItems: ["Lakban Industri", "Stretch Film", "Glue Stick", "Karet Blanket Cetak Offset", "Suku Cadang Mesin (Bearing, dll.)", "Dan lainnya"],
 
     f1Overline: "DUKUNGAN MANUFAKTUR",
     f1H2: "DUKUNGAN FLEKSIBEL UNTUK INDUSTRI MANUFAKTUR",
@@ -130,7 +130,7 @@ const COPY = {
       { name: "Pita Tali Plastik Putih (Strapping)", tag: "Packaging", img: "./images/pita-tali-plastik-putih.jpeg" },
       { name: "Plastik Stretch Film", tag: "Packaging", img: "./images/strecth-film.jpeg" },
       { name: "Lakban Industri & Scotch Tape", tag: "Consumable", img: "./images/scotch_tape.jpeg" },
-      { name: "Offset Printing Blanket", tag: "Percetakan", img: "./images/meiji_blanket.jpg" },
+      { name: "Karet Blanket Cetak Offset", tag: "Percetakan", img: "./images/meiji_blanket.jpg" },
     ],
 
     whyTitle: "Mengapa Bekerja Sama dengan Kami?",
@@ -155,7 +155,7 @@ const COPY = {
     faqs: [
       { q: "Layanan subkontrak apa yang tersedia di Batam dan Tangerang?", a: "Kami menyediakan dukungan manufaktur seperti perakitan, pengupasan, pengeleman manual, pick & pack, sortir, rework, dan proses manual lain sesuai kebutuhan." },
       { q: "Apakah bisa mendukung proses manufaktur secara berulang?", a: "Ya. Kami dapat mendiskusikan kebutuhan subkontrak berulang berdasarkan spesifikasi proses, volume, dan kebutuhan operasional." },
-      { q: "Apakah Anda menyuplai material industri?", a: "Ya. Kami menyuplai consumables industri, material tidak langsung, dan suku cadang mesin termasuk tape, stretch film, glue stick, blanket offset printing, dan bearing." },
+      { q: "Apakah Anda menyuplai material industri?", a: "Ya. Kami menyuplai consumables industri, material tidak langsung, dan suku cadang mesin termasuk tape, stretch film, glue stick, karet blanket cetak offset, dan bearing." },
       { q: "Bisakah Anda mencari produk yang tidak ada di website?", a: "Ya. Hubungi kami dengan spesifikasi produk Anda, dan tim kami akan mengevaluasi peluang pengadaannya." },
     ],
 
