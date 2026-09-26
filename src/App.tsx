@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 
 // ─── BILINGUAL CONTENT (EN & ID) ─────────────────────────────────────────────
 
@@ -38,6 +38,12 @@ const COPY = {
     f2Desc: "Streamline your factory supply chain with consistent, certified indirect materials and machinery spare parts from a single reliable vendor.",
     f2Btn: "REQUEST A QUOTE",
     f2Products: [
+      { name: "Alat Lem Tembak Bosch", tag: "Tools", img: "./images/alat-lem-tembak-bosch.jpeg" },
+      { name: "Glue Stick Uk Besar", tag: "Consumable", img: "./images/glue-stick-uk-besar.jpeg" },
+      { name: "Lakban Putih", tag: "Packaging", img: "./images/lakban-putih.jpeg" },
+      { name: "Masking Tape", tag: "Consumable", img: "./images/masking-tape.jpeg" },
+      { name: "Pita Tali Plastik Putih", tag: "Packaging", img: "./images/pita-tali-plastik-putih.jpeg" },
+      { name: "Stretch Film", tag: "Packaging", img: "./images/strecth-film.jpeg" },
       { name: "Industrial Tape & Scotch", tag: "Consumable", img: "./images/scotch_tape.jpeg" },
       { name: "Heavy-Duty Stretch Film", tag: "Packaging", img: "./images/wrapping.jpeg" },
       { name: "Offset Printing Blanket", tag: "Printing", img: "./images/meiji_blanket.jpg" },
@@ -118,6 +124,12 @@ const COPY = {
     f2Desc: "Sederhanakan rantai pasokan pabrik Anda dengan material tidak langsung bersertifikat dan suku cadang mesin dari satu vendor terpercaya.",
     f2Btn: "MINTA PENAWARAN",
     f2Products: [
+      { name: "Alat Lem Tembak Bosch", tag: "Peralatan", img: "./images/alat-lem-tembak-bosch.jpeg" },
+      { name: "Glue Stick Uk Besar", tag: "Consumable", img: "./images/glue-stick-uk-besar.jpeg" },
+      { name: "Lakban Putih", tag: "Packaging", img: "./images/lakban-putih.jpeg" },
+      { name: "Masking Tape", tag: "Consumable", img: "./images/masking-tape.jpeg" },
+      { name: "Pita Tali Plastik Putih", tag: "Packaging", img: "./images/pita-tali-plastik-putih.jpeg" },
+      { name: "Stretch Film", tag: "Packaging", img: "./images/strecth-film.jpeg" },
       { name: "Lakban Industri & Scotch", tag: "Consumable", img: "./images/scotch_tape.jpeg" },
       { name: "Stretch Film Roll", tag: "Packaging", img: "./images/wrapping.jpeg" },
       { name: "Offset Printing Blanket", tag: "Printing", img: "./images/meiji_blanket.jpg" },
@@ -215,6 +227,186 @@ function LangToggle({ lang, setLang, dark = false }: { lang: "en" | "id"; setLan
       <button onClick={() => setLang("id")} className="px-1.5 py-0.5 rounded cursor-pointer transition-colors" style={{ color: lang === "id" ? activeCol : inactiveCol, fontWeight: lang === "id" ? 700 : 500 }}>
         ID
       </button>
+    </div>
+  );
+}
+
+// ─── PRODUCT SLIDER COMPONENT (DRAG & SWIPE CAPABLE) ─────────────────────────
+
+interface ProductItem {
+  name: string;
+  tag: string;
+  img: string;
+}
+
+function ProductSlider({
+  products,
+  waUrl,
+  lang,
+}: {
+  products: ProductItem[];
+  waUrl: string;
+  lang: "en" | "id";
+}) {
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const [isDown, setIsDown] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeftPos, setScrollLeftPos] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = useCallback(() => {
+    if (!sliderRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
+    setCanScrollLeft(scrollLeft > 10);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+  }, []);
+
+  useEffect(() => {
+    const el = sliderRef.current;
+    if (!el) return;
+    checkScroll();
+    const handleResize = () => checkScroll();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [checkScroll, products]);
+
+  const scrollByAmount = (direction: "left" | "right") => {
+    if (!sliderRef.current) return;
+    const offset = 310;
+    sliderRef.current.scrollBy({
+      left: direction === "left" ? -offset : offset,
+      behavior: "smooth",
+    });
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!sliderRef.current) return;
+    setIsDown(true);
+    setIsDragging(false);
+    setStartX(e.pageX - sliderRef.current.offsetLeft);
+    setScrollLeftPos(sliderRef.current.scrollLeft);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDown(false);
+  };
+
+  const handleMouseUp = () => {
+    setIsDown(false);
+    setTimeout(() => setIsDragging(false), 50);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDown || !sliderRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - sliderRef.current.offsetLeft;
+    const walk = (x - startX) * 1.4;
+    if (Math.abs(walk) > 4) {
+      setIsDragging(true);
+    }
+    sliderRef.current.scrollLeft = scrollLeftPos - walk;
+  };
+
+  return (
+    <div className="flex flex-col gap-4">
+      {/* Slider Controls / Header bar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+        <div className="flex items-center gap-2 text-[13px] text-slate-600 font-medium">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4 text-[#03A2E8]">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+          </svg>
+          <span>{lang === "id" ? "Geser ke samping untuk melihat produk lainnya" : "Slide horizontally to explore all products"}</span>
+          <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-300/70 text-slate-800">
+            {products.length} {lang === "id" ? "Produk" : "Products"}
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => scrollByAmount("left")}
+            disabled={!canScrollLeft}
+            aria-label="Previous product"
+            className="w-9 h-9 rounded-full flex items-center justify-center bg-white text-[#001C44] border border-slate-300 hover:bg-[#001C44] hover:text-white hover:border-[#001C44] transition-all shadow-xs cursor-pointer disabled:opacity-35 disabled:cursor-not-allowed"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} className="w-4 h-4">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <button
+            onClick={() => scrollByAmount("right")}
+            disabled={!canScrollRight}
+            aria-label="Next product"
+            className="w-9 h-9 rounded-full flex items-center justify-center bg-white text-[#001C44] border border-slate-300 hover:bg-[#001C44] hover:text-white hover:border-[#001C44] transition-all shadow-xs cursor-pointer disabled:opacity-35 disabled:cursor-not-allowed"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} className="w-4 h-4">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Slider Tracks */}
+      <div
+        ref={sliderRef}
+        onMouseDown={handleMouseDown}
+        onMouseLeave={handleMouseLeave}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
+        onScroll={checkScroll}
+        className="flex gap-5 overflow-x-auto pb-5 pt-1 snap-x snap-mandatory cursor-grab active:cursor-grabbing select-none"
+        style={{
+          scrollbarWidth: "thin",
+          scrollbarColor: "#94A3B8 rgba(0,0,0,0.06)",
+          touchAction: "pan-y",
+        }}
+      >
+        {products.map((p) => {
+          const waMessage = encodeURIComponent(
+            lang === "id"
+              ? `Halo CV Mitra Jaya Unggul, saya tertarik dengan produk ${p.name}. Mohon informasi spesifikasi & penawaran harga.`
+              : `Hello CV Mitra Jaya Unggul, I am interested in ${p.name}. Please share details and pricing.`
+          );
+
+          return (
+            <div
+              key={p.name}
+              className="w-[260px] sm:w-[290px] shrink-0 snap-start bg-white rounded-xl overflow-hidden border shadow-sm flex flex-col hover:-translate-y-1 transition-all duration-200 group"
+              style={{ borderColor: "#CBD5E1" }}
+            >
+              <div className="h-48 bg-slate-100 flex items-center justify-center p-4 overflow-hidden relative border-b border-slate-100">
+                <img
+                  src={p.img}
+                  alt={p.name}
+                  draggable={false}
+                  className="h-full w-full object-contain group-hover:scale-105 transition-transform duration-300 pointer-events-none"
+                />
+              </div>
+              <div className="p-4 flex flex-col gap-3 flex-1 justify-between">
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-1">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#03A2E8]">{p.tag}</span>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-600">MJU Stock</span>
+                  </div>
+                  <h4 className="text-[14px] font-bold text-slate-900 leading-snug line-clamp-2">{p.name}</h4>
+                </div>
+                <a
+                  href={`${waUrl}?text=${waMessage}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    if (isDragging) e.preventDefault();
+                  }}
+                  className="inline-flex items-center justify-center gap-1.5 text-[12px] font-bold py-2 px-3 rounded-lg text-[#001C44] bg-slate-100 hover:bg-[#03A2E8] hover:text-[#001C44] transition-colors mt-auto"
+                >
+                  <WaIcon size={14} />
+                  <span>{lang === "id" ? "Tanya Stok / Harga" : "Inquire via WhatsApp"}</span>
+                </a>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -525,23 +717,8 @@ export default function App() {
               </a>
             </div>
 
-            {/* REAL PRODUCTS GRID */}
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {c.f2Products.map((p) => (
-                <div key={p.name} className="bg-white rounded-xl overflow-hidden border shadow-sm flex flex-col hover:-translate-y-1 transition-transform duration-200" style={{ borderColor: "#CBD5E1" }}>
-                  <div className="h-48 bg-slate-100 flex items-center justify-center p-4 overflow-hidden">
-                    <img src={p.img} alt={p.name} className="h-full w-full object-contain hover:scale-105 transition-transform duration-300" />
-                  </div>
-                  <div className="p-4 flex items-center justify-between gap-2 border-t" style={{ borderColor: "#F1F5F9" }}>
-                    <div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#03A2E8]">{p.tag}</span>
-                      <h4 className="text-[14px] font-bold text-slate-900">{p.name}</h4>
-                    </div>
-                    <span className="text-[11px] font-bold px-2 py-1 rounded bg-slate-100 text-slate-700">MJU Stock</span>
-                  </div>
-                </div>
-              ))}
-            </div>
+            {/* REAL PRODUCTS SLIDER / CAROUSEL (DRAGGABLE & SWIPEABLE) */}
+            <ProductSlider products={c.f2Products} waUrl={WA} lang={lang} />
           </div>
         </div>
       </section>
