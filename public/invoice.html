@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice Pelunasan - CV. Mitra Jaya Unggul</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      background-color: #f1f5f9;
+      color: #0f172a;
+      padding: 40px 20px;
+    }
+    .invoice-card {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      padding: 48px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 32px;
+      margin-bottom: 32px;
+    }
+    .brand h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: #001c44;
+      letter-spacing: -0.5px;
+    }
+    .brand p {
+      color: #64748b;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+    .invoice-badge {
+      text-align: right;
+    }
+    .badge-title {
+      font-size: 28px;
+      font-weight: 900;
+      color: #03a2e8;
+      letter-spacing: 1px;
+    }
+    .invoice-meta {
+      margin-top: 6px;
+      font-size: 13px;
+      color: #64748b;
+      line-height: 1.6;
+    }
+    .parties {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 36px;
+    }
+    .party-box h3 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #94a3b8;
+      margin-bottom: 8px;
+    }
+    .party-box .name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #001c44;
+    }
+    .party-box .detail {
+      font-size: 13px;
+      color: #475569;
+      line-height: 1.6;
+      margin-top: 4px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 32px;
+    }
+    th {
+      background-color: #001c44;
+      color: #ffffff;
+      text-align: left;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 14px 16px;
+    }
+    th:first-child {
+      border-top-left-radius: 8px;
+    }
+    th:last-child {
+      border-top-right-radius: 8px;
+      text-align: right;
+    }
+    td {
+      padding: 16px;
+      font-size: 14px;
+      border-bottom: 1px solid #f1f5f9;
+      color: #334155;
+    }
+    td:last-child {
+      text-align: right;
+      font-weight: 600;
+    }
+    .text-muted {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+    .calculation {
+      margin-left: auto;
+      max-width: 360px;
+      margin-bottom: 36px;
+    }
+    .calc-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      font-size: 14px;
+      color: #475569;
+    }
+    .calc-row.discount {
+      color: #16a34a;
+    }
+    .calc-row.total {
+      border-top: 2px solid #001c44;
+      padding-top: 14px;
+      margin-top: 8px;
+      font-size: 18px;
+      font-weight: 800;
+      color: #001c44;
+    }
+    .calc-row.total .amount {
+      color: #03a2e8;
+    }
+    .payment-info {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+    .payment-info h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #001c44;
+      margin-bottom: 12px;
+    }
+    .bank-grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 6px 16px;
+      font-size: 13px;
+      color: #334155;
+    }
+    .bank-grid span:nth-child(odd) {
+      color: #64748b;
+    }
+    .bank-grid span:nth-child(even) {
+      font-weight: 600;
+    }
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #94a3b8;
+      border-top: 1px solid #f1f5f9;
+      padding-top: 24px;
+    }
+    .print-btn-container {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .print-btn {
+      background-color: #001c44;
+      color: #ffffff;
+      border: none;
+      padding: 10px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .print-btn:hover {
+      background-color: #03a2e8;
+      color: #001c44;
+    }
+    @media print {
+      body {
+        background: transparent;
+        padding: 0;
+      }
+      .invoice-card {
+        box-shadow: none;
+        padding: 0;
+        border-radius: 0;
+      }
+      .print-btn-container {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="print-btn-container">
+    <button class="print-btn" onclick="window.print()">🖨️ Cetak / Simpan sebagai PDF</button>
+  </div>
+
+  <div class="invoice-card">
+    <div class="header">
+      <div class="brand">
+        <h1>Hendra Oktora</h1>
+        <p>Web Developer & Digital Solutions</p>
+        <p style="font-size: 12px; color: #94a3b8;">https://hendraoktora.com</p>
+      </div>
+      <div class="invoice-badge">
+        <div class="badge-title">INVOICE</div>
+        <div class="invoice-meta">
+          <div><strong>No:</strong> INV/2026/MJU-002</div>
+          <div><strong>Tanggal:</strong> 26 September 2026</div>
+          <div><strong>Jatuh Tempo:</strong> 30 September 2026</div>
+          <div><strong>Status:</strong> <span style="color: #d97706; font-weight: 700;">Pelunasan</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="parties">
+      <div class="party-box">
+        <h3>Ditagihkan Kepada:</h3>
+        <div class="name">CV. Mitra Jaya Unggul</div>
+        <div class="detail">
+          Attn: Tim Manajemen & Operasional<br>
+          Batam & Tangerang<br>
+          marketing@mitrajayaunggul.com
+        </div>
+      </div>
+      <div class="party-box">
+        <h3>Penerbit Tagihan:</h3>
+        <div class="name">Hendra Oktora</div>
+        <div class="detail">
+          Website & Frontend Specialist<br>
+          WhatsApp: 0852-8003-9433<br>
+          Website: https://hendraoktora.com
+        </div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 50%;">Deskripsi Layanan</th>
+          <th style="text-align: center; width: 15%;">Qty</th>
+          <th style="text-align: right; width: 15%;">Harga</th>
+          <th style="width: 20%;">Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <strong>Pembuatan Website Landing Page & Setup Domain</strong>
+            <div class="text-muted">Desain responsif, integrasi kontak WA & email, aset foto, copywriting, dan setup domain (Total Project Rp 800.000)</div>
+          </td>
+          <td style="text-align: center;">1 paket</td>
+          <td style="text-align: right;">Rp 800.000</td>
+          <td>Rp 800.000</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Add-on: Fitur Dual Bahasa (Bilingual EN & ID)</strong>
+            <div class="text-muted">Implementasi sistem toggle multi-bahasa instan (Inggris & Indonesia) pada seluruh konten website & katalog produk</div>
+          </td>
+          <td style="text-align: center;">1 paket</td>
+          <td style="text-align: right;">Rp 200.000</td>
+          <td>Rp 200.000</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="calculation">
+      <div class="calc-row">
+        <span>Total Nilai Pekerjaan:</span>
+        <span style="font-weight: 600;">Rp 1.000.000</span>
+      </div>
+      <div class="calc-row discount">
+        <span>Uang Muka / DP yang Telah Dibayar:</span>
+        <span style="font-weight: 600;">- Rp 400.000</span>
+      </div>
+      <div class="calc-row total">
+        <span>Sisa Pelunasan:</span>
+        <span class="amount">Rp 600.000</span>
+      </div>
+      <div style="font-size: 12px; color: #64748b; text-align: right; margin-top: 4px;">
+        <em>Terbilang: Enam Ratus Ribu Rupiah</em>
+      </div>
+    </div>
+
+    <div class="payment-info">
+      <h4>Instruksi Pembayaran</h4>
+      <div class="bank-grid">
+        <span>Bank:</span>
+        <span>Mandiri</span>
+        <span>No. Rekening:</span>
+        <span>1270007997172</span>
+        <span>Atas Nama:</span>
+        <span>Hendra Oktora</span>
+      </div>
+      <p style="font-size: 12px; color: #64748b; margin-top: 12px;">
+        * Mohon cantumkan nomor invoice <strong>INV/2026/MJU-002</strong> pada berita transfer atau kirimkan bukti transfer via WhatsApp ke <strong>0852-8003-9433</strong>.
+      </p>
+    </div>
+
+    <div class="footer">
+      <p>Terima kasih atas kerja sama dan kepercayaannya kepada kami.</p>
+    </div>
+  </div>
+
+</body>
+</html>
